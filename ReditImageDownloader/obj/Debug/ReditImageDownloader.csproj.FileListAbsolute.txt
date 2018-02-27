@@ -1,0 +1,12 @@
+c:\users\administrator\documents\visual studio 2017\Projects\ReditImageDownloader\ReditImageDownloader\bin\Debug\SubReddits\SubReddit.json
+c:\users\administrator\documents\visual studio 2017\Projects\ReditImageDownloader\ReditImageDownloader\bin\Debug\ReditImageDownloader.exe.config
+c:\users\administrator\documents\visual studio 2017\Projects\ReditImageDownloader\ReditImageDownloader\bin\Debug\ReditImageDownloader.exe
+c:\users\administrator\documents\visual studio 2017\Projects\ReditImageDownloader\ReditImageDownloader\bin\Debug\ReditImageDownloader.pdb
+c:\users\administrator\documents\visual studio 2017\Projects\ReditImageDownloader\ReditImageDownloader\bin\Debug\Newtonsoft.Json.dll
+c:\users\administrator\documents\visual studio 2017\Projects\ReditImageDownloader\ReditImageDownloader\bin\Debug\RedditSharp.dll
+c:\users\administrator\documents\visual studio 2017\Projects\ReditImageDownloader\ReditImageDownloader\bin\Debug\Newtonsoft.Json.xml
+c:\users\administrator\documents\visual studio 2017\Projects\ReditImageDownloader\ReditImageDownloader\bin\Debug\RedditSharp.xml
+c:\users\administrator\documents\visual studio 2017\Projects\ReditImageDownloader\ReditImageDownloader\obj\Debug\ReditImageDownloader.csprojResolveAssemblyReference.cache
+c:\users\administrator\documents\visual studio 2017\Projects\ReditImageDownloader\ReditImageDownloader\obj\Debug\ReditImageDownloader.csproj.CoreCompileInputs.cache
+c:\users\administrator\documents\visual studio 2017\Projects\ReditImageDownloader\ReditImageDownloader\obj\Debug\ReditImageDownloader.exe
+c:\users\administrator\documents\visual studio 2017\Projects\ReditImageDownloader\ReditImageDownloader\obj\Debug\ReditImageDownloader.pdb
