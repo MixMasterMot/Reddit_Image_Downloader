@@ -2,9 +2,8 @@
 using System.Net;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.IO;
 using RedditSharp;
 using RedditSharp.Things;
@@ -17,7 +16,12 @@ namespace ReditImageDownloader
         {
             Program prog = new Program();
             Console.WriteLine("Started Reddit Downloader");
-            string saveLocation = @"C:\Users\Administrator\Pictures\RedditWall\";
+            string saveLocation = prog.GetSaveDir();
+            if (saveLocation == null)
+            {
+                return;
+            }
+
             prog.RemoveOldImage(saveLocation);
             List<string> subReddits = prog.GetSubReddit();
 
@@ -26,7 +30,7 @@ namespace ReditImageDownloader
             foreach(string sub in subReddits)
             {
                 Console.WriteLine("Downloading from " + sub);
-                int count = 15;
+                int count = 10;
                 var subreddit = reddit.GetSubreddit(sub);
 
                 foreach (var post in subreddit.GetTop(FromTime.All).Take(count))
@@ -37,11 +41,14 @@ namespace ReditImageDownloader
                     {
                         continue;
                     }
-                    prog.DownloadImages(postURL, saveLocation);
+                    string img = prog.DownloadImages(postURL, saveLocation);
+                    if (img != null)
+                    {
+                        prog.AddToDownloadList(img);
+                    }
                 }
             }
             Console.WriteLine("Reddit Downloader Completed");
-            Console.ReadKey();
         }
 
         private List<string> GetSubReddit()
@@ -75,14 +82,29 @@ namespace ReditImageDownloader
             }
             return ret;
         }
-
-        public void DownloadImages(string imageURL, string userDir)
+        private string GetSaveDir()
+        {
+            string json = File.ReadAllText("SubReddits/SaveLocation.json");
+            List<string> tstLocation = JsonConvert.DeserializeObject<List<string>>(json);
+            if (!Directory.Exists(tstLocation[0]))
+            {
+                using (StreamWriter file = new StreamWriter("SubReddits/Errors.txt", true))
+                {
+                    string error = "File location " + tstLocation[0] + " does not exist";
+                    file.WriteLine(error);
+                }
+                return null;
+            }
+            return tstLocation[0];
+        }
+        public string DownloadImages(string imageURL, string userDir)
         {
             Console.WriteLine("Downloading {0}", imageURL);
             string[] splitURL = imageURL.Split('/');
             int index = splitURL.Length - 1;
             string fileName = splitURL[index];
-            
+
+            bool download = true;
             try
             {
                 using(WebClient client = new WebClient())
@@ -93,6 +115,20 @@ namespace ReditImageDownloader
             catch (Exception ex)
             {
                 Console.WriteLine($"[INFO] ERROR DOWNLOADING FILE: {ex}");
+                using (StreamWriter file = new StreamWriter("SubReddits/Errors.txt", true))
+                {
+                    file.WriteLine("Download Error:");
+                    file.WriteLine(ex);
+                }
+                download = false;
+            }
+            if (download == false)
+            {
+                return null;
+            }
+            else
+            {
+                return imageURL;
             }
         }
         public bool ValidImgUrl(string imgUrl)
@@ -146,6 +182,13 @@ namespace ReditImageDownloader
                 }
             }
             
+        }
+        public void AddToDownloadList(string img)
+        {
+            using (StreamWriter file = new StreamWriter("SubReddits/DownloadedImg.txt", true))
+            {
+                file.WriteLine(img);
+            }
         }
 
     }

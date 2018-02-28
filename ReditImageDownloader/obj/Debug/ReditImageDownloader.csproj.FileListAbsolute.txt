@@ -10,3 +10,5 @@ c:\users\administrator\documents\visual studio 2017\Projects\ReditImageDownloade
 c:\users\administrator\documents\visual studio 2017\Projects\ReditImageDownloader\ReditImageDownloader\obj\Debug\ReditImageDownloader.csproj.CoreCompileInputs.cache
 c:\users\administrator\documents\visual studio 2017\Projects\ReditImageDownloader\ReditImageDownloader\obj\Debug\ReditImageDownloader.exe
 c:\users\administrator\documents\visual studio 2017\Projects\ReditImageDownloader\ReditImageDownloader\obj\Debug\ReditImageDownloader.pdb
+C:\Users\Administrator\documents\visual studio 2017\Projects\ReditImageDownloader\ReditImageDownloader\bin\Debug\SubReddits\Errors.txt
+C:\Users\Administrator\documents\visual studio 2017\Projects\ReditImageDownloader\ReditImageDownloader\bin\Debug\SubReddits\SaveLocation.json
