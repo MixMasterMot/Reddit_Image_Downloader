@@ -30,18 +30,20 @@ namespace ReditImageDownloader
             foreach(string sub in subReddits)
             {
                 Console.WriteLine("Downloading from " + sub);
-                int count = 10;
+                int count = 15;
                 var subreddit = reddit.GetSubreddit(sub);
 
-                foreach (var post in subreddit.GetTop(FromTime.All).Take(count))
+                foreach (var post in subreddit.Hot.Take(count))
                 {
                     if (post.IsStickied || post.IsSelfPost || Convert.ToString(post.Url).Contains("reddituploads")) continue;
                     string postURL = Convert.ToString(post.Url);
+                    string postName = Convert.ToString(post.Title);
+                    postName = prog.MakeNameSafe(postName);
                     if (!prog.ValidImgUrl(postURL))
                     {
                         continue;
                     }
-                    string img = prog.DownloadImages(postURL, saveLocation);
+                    string img = prog.DownloadImages(postURL, saveLocation, postName);
                     if (img != null)
                     {
                         prog.AddToDownloadList(img);
@@ -49,6 +51,35 @@ namespace ReditImageDownloader
                 }
             }
             Console.WriteLine("Reddit Downloader Completed");
+        }
+
+        private string MakeNameSafe(string postName)
+        {
+            List<string> illegal = new List<string>();
+            illegal.Add("/");
+            illegal.Add(@"\");
+            illegal.Add(":");
+            illegal.Add(";");
+
+            foreach(string str in illegal)
+            {
+                if (postName.Contains(str))
+                {
+                    postName = postName.Replace(str, " ");
+                }
+            }
+
+            string[] splitName = postName.Split(' ');
+            if (splitName.Length > 6)
+            {
+                string tmp = null;
+                for(int i = 0;i<6;i++)
+                {
+                    tmp = tmp + splitName[0] + " ";
+                }
+                postName = tmp;
+            }
+            return postName.TrimEnd();
         }
 
         private List<string> GetSubReddit()
@@ -64,23 +95,23 @@ namespace ReditImageDownloader
                 subs.Add(pair.Value);
             }
 
-            List<int> rndms = new List<int>();
-            Random rnd = new Random();
-            for(int i = 0; i < 3; i++)
-            {
-                int tmpRnd = rnd.Next(0, subs.Count - 1);
-                if (!rndms.Contains(tmpRnd))
-                {
-                    rndms.Add(tmpRnd);
-                }
-            }
+            //List<int> rndms = new List<int>();
+            //Random rnd = new Random();
+            //for(int i = 0; i < 3; i++)
+            //{
+            //    int tmpRnd = rnd.Next(0, subs.Count - 1);
+            //    if (!rndms.Contains(tmpRnd))
+            //    {
+            //        rndms.Add(tmpRnd);
+            //    }
+            //}
 
-            List<string> ret = new List<string>();
-            foreach(int i in rndms)
-            {
-                ret.Add(subs[i]);
-            }
-            return ret;
+            //List<string> ret = new List<string>();
+            //foreach(int i in rndms)
+            //{
+            //    ret.Add(subs[i]);
+            //}
+            return subs;
         }
         private string GetSaveDir()
         {
@@ -97,19 +128,20 @@ namespace ReditImageDownloader
             }
             return tstLocation[0];
         }
-        public string DownloadImages(string imageURL, string userDir)
+        public string DownloadImages(string imageURL, string userDir,string postName)
         {
             Console.WriteLine("Downloading {0}", imageURL);
-            string[] splitURL = imageURL.Split('/');
+            string[] splitURL = imageURL.Split('.');
             int index = splitURL.Length - 1;
-            string fileName = splitURL[index];
+            string fileExt = "."+splitURL[index];
+
 
             bool download = true;
             try
             {
                 using(WebClient client = new WebClient())
                 {
-                    client.DownloadFile(imageURL, Path.Combine(userDir, fileName));
+                    client.DownloadFile(imageURL, Path.Combine(userDir, postName + fileExt));
                 }
             }
             catch (Exception ex)
