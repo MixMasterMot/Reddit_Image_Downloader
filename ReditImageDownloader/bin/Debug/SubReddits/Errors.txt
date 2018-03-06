@@ -1,1 +1,5 @@
-﻿
+﻿Download Error:
+System.ArgumentException: Illegal characters in path.
+   at System.IO.Path.CheckInvalidPathChars(String path, Boolean checkAdditional)
+   at System.IO.Path.Combine(String path1, String path2)
+   at ReditImageDownloader.Program.DownloadImages(String imageURL, String userDir, String postName) in C:\Users\Administrator\documents\visual studio 2017\Projects\ReditImageDownloader\ReditImageDownloader\Program.cs:line 114
