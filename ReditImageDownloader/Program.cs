@@ -46,7 +46,7 @@ namespace ReditImageDownloader
                     string img = prog.DownloadImages(postURL, saveLocation, postName);
                     if (img != null)
                     {
-                        prog.AddToDownloadList(img);
+                        prog.AddToDownloadList(img, postName);
                     }
                 }
             }
@@ -95,22 +95,6 @@ namespace ReditImageDownloader
                 subs.Add(pair.Value);
             }
 
-            //List<int> rndms = new List<int>();
-            //Random rnd = new Random();
-            //for(int i = 0; i < 3; i++)
-            //{
-            //    int tmpRnd = rnd.Next(0, subs.Count - 1);
-            //    if (!rndms.Contains(tmpRnd))
-            //    {
-            //        rndms.Add(tmpRnd);
-            //    }
-            //}
-
-            //List<string> ret = new List<string>();
-            //foreach(int i in rndms)
-            //{
-            //    ret.Add(subs[i]);
-            //}
             return subs;
         }
         private string GetSaveDir()
@@ -215,11 +199,12 @@ namespace ReditImageDownloader
             }
             
         }
-        public void AddToDownloadList(string img)
+        public void AddToDownloadList(string img, string imgName)
         {
             using (StreamWriter file = new StreamWriter("SubReddits/DownloadedImg.txt", true))
             {
-                file.WriteLine(img);
+                string line = Convert.ToString(DateTime.Now) + "     " + imgName + "     " + img;
+                file.WriteLine(line);
             }
         }
 
