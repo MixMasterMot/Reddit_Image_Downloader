@@ -29,7 +29,10 @@ namespace ReditImageDownloader
             
             foreach(string sub in subReddits)
             {
-                Console.WriteLine("Downloading from " + sub);
+                string text = "Downloading from " + sub;
+                ConsoleColor colorBack = ConsoleColor.Black;
+                ConsoleColor colorFront = ConsoleColor.Green;
+                PrintConsoleColour(text, colorBack, colorFront);
                 int count = 15;
                 var subreddit = reddit.GetSubreddit(sub);
 
@@ -206,6 +209,13 @@ namespace ReditImageDownloader
                 string line = Convert.ToString(DateTime.Now) + "     " + imgName + "     " + img;
                 file.WriteLine(line);
             }
+        }
+        public static void PrintConsoleColour(string text, ConsoleColor colorBack,ConsoleColor colorFront)
+        {
+            Console.BackgroundColor = colorBack;
+            Console.ForegroundColor = colorFront;
+            Console.WriteLine(text); 
+            Console.ResetColor();
         }
 
     }
