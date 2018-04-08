@@ -13,3 +13,4 @@ c:\users\administrator\documents\visual studio 2017\Projects\ReditImageDownloade
 C:\Users\Administrator\documents\visual studio 2017\Projects\ReditImageDownloader\ReditImageDownloader\bin\Debug\SubReddits\Errors.txt
 C:\Users\Administrator\documents\visual studio 2017\Projects\ReditImageDownloader\ReditImageDownloader\bin\Debug\SubReddits\SaveLocation.json
 C:\Users\Administrator\documents\visual studio 2017\Projects\ReditImageDownloader\ReditImageDownloader\bin\Debug\SubReddits\DownloadedImg.txt
+C:\Users\Administrator\documents\visual studio 2017\Projects\ReditImageDownloader\ReditImageDownloader\bin\Debug\SubReddits\Resolution.json
